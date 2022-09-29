@@ -66,36 +66,3 @@ with open(f'{profession}.csv', 'w') as f:
     writer = csv.writer(f, delimiter=',')
     for item in info:
         writer.writerow([item['title'], item['company'], item['salary'], item['city']])
-
-'''def replace_unicode(info):
-    salary = []
-for i in info:
-    info['salary'].append(i['salary'][0].replace('\u202f', ' ').replace('\u2009', ' '))
-print(info)
-for item in info:
-    print(item)
-for i in info:
-    i['salary'].replace('\u202f', ' ')
-    print(i['salary'])
-НЕ ПОЛУЧАЕТСЯ УБРАТЬ ЛИШНИЕ СИМВОЛЫ В salary'''
-
-# end = time.perf_counter()
-# print(f'{end - start:0.2f}')
-
-# start = time.perf_counter()         ##Не разобрался как теперь ко всему этому прикрутить потоки???
-# threads = []
-# for page in range(pages):
-#     t = Thread(target=get_info, args=(page,))
-#     t.start()
-#     threads.append(t)
-#
-# for t in threads:
-#     t.join()
-# print(threads)
-# with open(f'{profession}.csv', 'w') as f:
-#     writer = csv.writer(f, delimiter=',')
-#     for item in threads:
-#         writer.writerow([item['title'], item['company'], item['salary'], item['city']])
-
-# end = time.perf_counter()
-# print(f'time with threads = {end - start:0.2f}')
