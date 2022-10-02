@@ -14,7 +14,7 @@ HEADERS = {
 def vacancy_links(profession: str, page: int):
     oll_links = []
     for i in range(page):
-        r = requests.get(f'https://www.work.ua/ru/jobs-{profession}/?page={page + 1}',
+        r = requests.get(f'https://www.work.ua/ru/jobs-{profession}/?page={i + 1}',
                          headers=HEADERS)
         tree = html.fromstring(r.text)
 
@@ -61,6 +61,7 @@ def get_info(oll_links):
 profession = input('Введите итересующую профессию: ')
 pages = int(input('Введите к-во страниц для поиска: '))
 info = get_info(vacancy_links(profession, pages))
+# print(info)
 
 with open(f'{profession}.csv', 'w') as f:
     writer = csv.writer(f, delimiter=',')
