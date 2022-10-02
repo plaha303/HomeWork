@@ -37,7 +37,7 @@ def add_db_info(info: dict, table):
     # if cursor.fetchall() is None:               #БЕЗ УНИКАЛЬНЫХ ЗНАЧЕНИЙ ЗАПИСИ???
     cursor.execute(req)
     connect.commit()
-    print('запись данных закончена')
+    # print('запись данных закончена')
 
 
 HOST = 'https://www.work.ua'

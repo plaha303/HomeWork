@@ -14,7 +14,7 @@ HEADERS = {
 def vacancy_links(profession: str, page: int):
     oll_links = []
     for i in range(page):
-        r = requests.get(f'https://www.work.ua/ru/jobs-{profession}/?page={page + 1}',
+        r = requests.get(f'https://www.work.ua/ru/jobs-{profession}/?page={i + 1}',
                          headers=HEADERS)
         tree = html.fromstring(r.text)
 
@@ -48,10 +48,10 @@ def get_info(oll_links):
 
         oll_info.append(
             {
-                'title': tree.xpath('//*[@id="h1-name"]/text()'),
-                'company': company,
-                'salary': salary,
-                'city': place,
+                'title': tree.xpath('//*[@id="h1-name"]/text()')[0],
+                'company': company[0],
+                'salary': salary[0],
+                'city': place[0],
             }
         )
 
