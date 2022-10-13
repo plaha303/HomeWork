@@ -33,10 +33,40 @@ def get_dish_links(url):
     return dish_links
 
 
+def get_info(links: list):
+    info = []
+    for item in links:
+        r = requests.get(item, headers=HEADERS)
+        tree = html.fromstring(r.text)
+        product_name = tree.xpath('//*[@id="content"]/div[3]/h1/text()')
+        if product_name == []:
+            product_name = tree.xpath('//*[@id="content"]/div[4]/h1/text()')
+        description = tree.xpath('//*[@id="content"]/div[3]/div[1]/text()')[:-2]
+        if description == []:
+            description = tree.xpath('//*[@id="content"]/div[4]/div[1]/text()')[:-2]
+        description = ''.join(description)
+        ingredients = tree.xpath('//*[@class="p-ingredient"]/text()')
+        ingredients = '\n'.join(ingredients)
+        recipe = tree.xpath('//*[@itemprop="recipeInstructions"]/text()')
+        recipe = '\n'.join(recipe)
+        product = {
+            'category': tree.xpath('//*[@id="sitepos"]/ul/li[2]/a/text()')[0],
+            'img link': tree.xpath('/html/body/div[4]/a/img/@src')[0],
+            'product name': product_name[0],
+            'description': description,
+            'ingredients': ingredients,
+            'recipe': recipe,
+        }
+        info.append(product)
+    return info
+
+
 link = get_dish_links(HOST)
-# print(link)
-for i in link:
-    print(i)
+link_2 = link[0: 5]
+# print(link_2)
+
+info = get_info(link_2)
+print(info)
 
 # r = requests.get(url='https://www.say7.info/cook/recipe/581-Zapekanka-risom.html')
 # tree = html.fromstring(r.text)
